@@ -1,0 +1,28 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:weighting="clr-namespace:TestTaskOne.ViewModels.Weighting"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="TestTaskOne.Windows.Weighting.CreateWeightingWindow"
+        x:DataType="weighting:CreateWeightingViewModel">
+
+    <StackPanel Margin="20" Spacing="15">
+        <TextBox Text="{Binding CarNumber}"
+                 Watermark="Input car number"
+                 ToolTip.Tip="Car number" />
+
+        <StackPanel Orientation="Horizontal" Spacing="10">
+            <TextBlock Text="Weight gross (kg):" VerticalAlignment="Center" />
+            <NumericUpDown Value="{Binding WeightGross}"
+                           Minimum="0"
+                           FormatString="0.##"
+                           Width="150" />
+        </StackPanel>
+
+        <Button Content="Create"
+                Command="{Binding CreateCommand}"
+                HorizontalAlignment="Right"
+                Padding="20,5" />
+    </StackPanel>
+</Window>

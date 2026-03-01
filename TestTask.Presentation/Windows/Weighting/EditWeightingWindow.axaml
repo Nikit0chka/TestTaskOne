@@ -1,0 +1,52 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:weighting="clr-namespace:TestTaskOne.ViewModels.Weighting"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="TestTaskOne.Windows.Weighting.EditWeightingWindow"
+        Title="EditWeightingWindow"
+        x:DataType="weighting:EditWeightingViewModel">
+
+    <StackPanel Margin="20" Spacing="15">
+        <TextBox Text="{Binding CarNumber}"
+                 Watermark="Input car number"
+                 ToolTip.Tip="Car number" />
+
+        <StackPanel Orientation="Horizontal" Spacing="10">
+            <TextBlock Text="Weight gross (kg):" VerticalAlignment="Center" />
+            <NumericUpDown Value="{Binding WeightGross}"
+                           Minimum="0"
+                           FormatString="0.##"
+                           Width="150" />
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Spacing="10">
+            <TextBlock Text="Weight tare (kg):" VerticalAlignment="Center" />
+            <NumericUpDown Value="{Binding WeightTare}"
+                           Minimum="0"
+                           FormatString="0.##"
+                           IsReadOnly="True"
+                           Width="150" />
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Spacing="10">
+            <TextBlock Text="Weight net (kg):" VerticalAlignment="Center" />
+            <NumericUpDown Value="{Binding WeightNet}"
+                           Minimum="0"
+                           FormatString="0.##"
+                           IsReadOnly="True"
+                           Width="150" />
+        </StackPanel>
+
+        <Button Content="Save"
+                Command="{Binding SaveCommand}"
+                HorizontalAlignment="Right"
+                Padding="20,5" />
+
+        <Button Content="EditWeightingTare"
+                Command="{Binding GotoAddWeightingPageCommand}"
+                HorizontalAlignment="Right"
+                Padding="20,5" />
+    </StackPanel>
+</Window>
