@@ -4,7 +4,7 @@ using TestTask.Infrastructure.Data;
 
 namespace TestTask.Infrastructure.Services.Repositories;
 
-/// <inheritdoc/>
+/// <inheritdoc />
 internal sealed class CarRepository(WeightingContext weightingContext) : ICarRepository
 {
     public async Task<Car?> FindAsync(int id, CancellationToken cancellationToken)

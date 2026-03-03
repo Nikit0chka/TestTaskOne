@@ -4,7 +4,7 @@ using TestTask.Infrastructure.Data;
 
 namespace TestTask.Infrastructure.Services.Repositories;
 
-/// <inheritdoc/>
+/// <inheritdoc />
 internal sealed class WeightingRepository(WeightingContext weightingContext) : IWeightingRepository
 {
     public async Task AddAsync(Weighting weighting, CancellationToken cancellationToken)

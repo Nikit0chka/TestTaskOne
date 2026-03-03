@@ -16,7 +16,7 @@ internal static class ApplicationErrors
     }
 
     /// <summary>
-    /// Ошибки связанные с машиной
+    ///     Ошибки связанные с машиной
     /// </summary>
     public static class CarErrors
     {

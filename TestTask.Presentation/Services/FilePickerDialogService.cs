@@ -7,7 +7,7 @@ using TestTaskOne.Contracts.Dialog;
 
 namespace TestTaskOne.Services;
 
-///<inheritdoc/>
+/// <inheritdoc />
 internal sealed class FilePickerDialogService(IWindowService windowService) : IFilePickerDialogService
 {
     public async Task<string?> OpenFilePickerAsync(

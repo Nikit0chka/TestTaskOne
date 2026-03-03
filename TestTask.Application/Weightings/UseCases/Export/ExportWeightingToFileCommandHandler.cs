@@ -8,7 +8,7 @@ using TestTask.Domain.WeightingAggregate;
 namespace TestTask.Application.Weightings.UseCases.Export;
 
 /// <summary>
-/// Обработчик команды импорта провесок из файла
+///     Обработчик команды импорта провесок из файла
 /// </summary>
 internal sealed class
     ExportWeightingToFileCommandHandler(

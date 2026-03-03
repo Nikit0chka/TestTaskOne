@@ -1,14 +1,14 @@
 <Solution>
     <Folder Name="/SolutionItems/">
-        <File Path=".gitignore" />
-        <File Path="Directory.Packages.props" />
-        <File Path="Readme.md" />
+        <File Path=".gitignore"/>
+        <File Path="Directory.Packages.props"/>
+        <File Path="Readme.md"/>
     </Folder>
     <Folder Name="/Src/">
-        <Project Path="TestTask.Application/TestTask.Application.csproj" />
-        <Project Path="TestTask.Domain\TestTask.Domain.csproj" />
-        <Project Path="TestTask.Infrastructure\TestTask.Infrastructure.csproj" />
-        <Project Path="TestTask.Presentation\TestTask.Presentation.csproj" />
+        <Project Path="TestTask.Application/TestTask.Application.csproj"/>
+        <Project Path="TestTask.Domain\TestTask.Domain.csproj"/>
+        <Project Path="TestTask.Infrastructure\TestTask.Infrastructure.csproj"/>
+        <Project Path="TestTask.Presentation\TestTask.Presentation.csproj"/>
     </Folder>
-    <Folder Name="/Tests/" />
+    <Folder Name="/Tests/"/>
 </Solution>

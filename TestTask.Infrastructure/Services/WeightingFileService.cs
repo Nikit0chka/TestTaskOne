@@ -4,7 +4,7 @@ using TestTask.Application.Weightings.Dto;
 
 namespace TestTask.Infrastructure.Services;
 
-/// <inheritdoc/>
+/// <inheritdoc />
 internal sealed class WeightingFileService : IWeightingFileService
 {
     private static readonly JsonSerializerOptions _jsonSerializerOptions = new();

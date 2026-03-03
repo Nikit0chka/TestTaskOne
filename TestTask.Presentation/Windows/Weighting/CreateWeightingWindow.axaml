@@ -10,8 +10,7 @@
     <StackPanel Margin="20" Spacing="15">
         <ComboBox ItemsSource="{Binding CarSelectList}"
                   SelectedItem="{Binding SelectedCar}"
-                  DisplayMemberBinding="{Binding Number}">
-        </ComboBox>
+                  DisplayMemberBinding="{Binding Number}" />
 
         <StackPanel Orientation="Horizontal" Spacing="10">
             <TextBlock Text="Weight gross (kg):" VerticalAlignment="Center" />

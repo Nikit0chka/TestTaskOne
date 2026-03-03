@@ -40,5 +40,4 @@ public interface IWeightingRepository
     /// </summary>
     /// <param name="cancellationToken">Токен для отмены асинхронной операции</param>
     public Task<List<Weighting>> GetList(CancellationToken cancellationToken);
-    
 }

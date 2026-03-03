@@ -3,6 +3,9 @@ using Microsoft.EntityFrameworkCore.Design;
 
 namespace TestTask.Infrastructure.Data;
 
+/// <summary>
+///     Фабрика контекста для миграций
+/// </summary>
 internal class AppContextFactory : IDesignTimeDbContextFactory<WeightingContext>
 {
     public WeightingContext CreateDbContext(string[] args)

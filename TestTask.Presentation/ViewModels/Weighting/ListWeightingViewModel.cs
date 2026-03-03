@@ -85,7 +85,7 @@ public sealed partial class ListWeightingViewModel(
         }
 
         messageBox = MessageBoxManager.GetMessageBoxStandard("Success",
-            $"Successfully exported weightings", ButtonEnum.Ok,
+            "Successfully exported weightings", ButtonEnum.Ok,
             Icon.Success);
 
         await messageBoxPopupProvider.ShowMessageBoxPopup(messageBox);

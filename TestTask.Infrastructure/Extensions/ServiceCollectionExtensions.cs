@@ -40,6 +40,9 @@ public static class ServiceCollectionExtensions
             logger.LogInformation("Infrastructure сервисы зарегистрированы");
         }
 
+        /// <summary>
+        ///     Логика добавления репозиториев
+        /// </summary>
         private void AddRepositories()
         {
             serviceCollection.AddTransient<IWeightingRepository, WeightingRepository>();

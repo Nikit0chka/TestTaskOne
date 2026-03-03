@@ -1,17 +1,16 @@
 using System.Text.RegularExpressions;
 using ErrorOr;
-using TestTask.Domain.WeightingAggregate;
 
 namespace TestTask.Domain.CarAggregate;
 
 /// <summary>
-///     Агрегат номера автомобиля.
+///     Агрегат машины.
 ///     Нормализует номер и проверяет регулярное выражение.
 /// </summary>
 public partial class Car
 {
     /// <summary>
-    /// Идентификатор
+    ///     Идентификатор
     /// </summary>
     public int Id { get; private init; }
 

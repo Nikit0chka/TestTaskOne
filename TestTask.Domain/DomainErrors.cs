@@ -2,8 +2,14 @@ using ErrorOr;
 
 namespace TestTask.Domain;
 
+/// <summary>
+///     Доменны ошибки агрегатов
+/// </summary>
 public static class DomainErrors
 {
+    /// <summary>
+    ///     Ошибки связанные с провесками
+    /// </summary>
     public static class WeightingAggregateDomainErrors
     {
         public static readonly Error WeightingGrossWeightCanNotBeLessThanOne =

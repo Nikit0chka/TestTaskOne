@@ -3,7 +3,7 @@ using TestTask.Domain.WeightingAggregate;
 namespace TestTask.Application.Weightings.Dto;
 
 /// <summary>
-/// Модель провески для списка
+///     Модель провески для списка
 /// </summary>
 public readonly record struct ListWeightingModel
 {
@@ -15,6 +15,9 @@ public readonly record struct ListWeightingModel
     public DateTime WeightingGrossDate { get; init; }
     public DateTime? WeightingTareDate { get; init; }
 
+    /// <summary>
+    ///     Основной конструктор создания
+    /// </summary>
     private ListWeightingModel(int weightingId, string carNumber, double weightingGross, double? weightingNet,
         double? weightingTare, DateTime weightingGrossDate, DateTime? weightingTareDate)
     {
@@ -27,6 +30,10 @@ public readonly record struct ListWeightingModel
         WeightingTareDate = weightingTareDate;
     }
 
+    /// <summary>
+    ///     Фабричный метод создания
+    /// </summary>
+    /// <param name="weighting">Провеска</param>
     public static ListWeightingModel Create(Weighting weighting)
     {
         return new ListWeightingModel(weighting.Id, weighting.Car.Number, weighting.WeightingGross.WeightKg,
