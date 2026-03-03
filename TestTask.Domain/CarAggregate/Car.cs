@@ -1,39 +1,45 @@
 using System.Text.RegularExpressions;
 using ErrorOr;
+using TestTask.Domain.WeightingAggregate;
 
-namespace TestTask.Domain.WeightingAggregate;
+namespace TestTask.Domain.CarAggregate;
 
 /// <summary>
-///     Объект значение для номера автомобиля.
+///     Агрегат номера автомобиля.
 ///     Нормализует номер и проверяет регулярное выражение.
 /// </summary>
-public sealed partial record CarNumber
+public partial class Car
 {
+    /// <summary>
+    /// Идентификатор
+    /// </summary>
+    public int Id { get; private init; }
+
     /// <summary>
     ///     Регулярное выражение номера автомобиля
     /// </summary>
-    [GeneratedRegex(@"^[A-Z]{2}\d{3}[A-Z]\d{2}$", RegexOptions.Compiled)]
+    [GeneratedRegex(@"^[А-Я]{1}\d{3}[А-Я]{2}\d{2}$", RegexOptions.Compiled)]
     private static partial Regex CarNumberRegex();
 
     /// <summary>
     ///     Значение
     /// </summary>
-    public string Value { get; private init; }
+    public string Number { get; private init; }
 
     /// <summary>
     ///     Основной конструктор
     /// </summary>
-    /// <param name="value">Номер</param>
-    private CarNumber(string value)
+    /// <param name="number">Номер</param>
+    private Car(string number)
     {
-        Value = value;
+        Number = number;
     }
 
     /// <summary>
     ///     Ef-core конструктор
     /// </summary>
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
-    private CarNumber()
+    private Car()
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
     {
     }
@@ -41,9 +47,9 @@ public sealed partial record CarNumber
     /// <summary>
     ///     Фабричный метод создания
     /// </summary>
-    /// <param name="number"></param>
+    /// <param name="number">Номер машины</param>
     /// <exception cref="ArgumentException"></exception>
-    public static ErrorOr<CarNumber> Create(string number)
+    public static ErrorOr<Car> Create(string number)
     {
         if (string.IsNullOrWhiteSpace(number))
             return DomainErrors.WeightingAggregateDomainErrors.CarNumberNumberCanNotBeNullOrWhiteSpace;
@@ -53,6 +59,6 @@ public sealed partial record CarNumber
         if (!CarNumberRegex().IsMatch(normalized))
             return DomainErrors.WeightingAggregateDomainErrors.CarNumberNumberInvalidFormat;
 
-        return new CarNumber(normalized);
+        return new Car(normalized);
     }
 }

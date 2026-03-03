@@ -1,6 +1,7 @@
 using ErrorOr;
 using Mediator;
 using Microsoft.Extensions.Logging;
+using TestTask.Domain.CarAggregate;
 using TestTask.Domain.WeightingAggregate;
 
 namespace TestTask.Application.Weightings.UseCases.Create;
@@ -10,6 +11,7 @@ namespace TestTask.Application.Weightings.UseCases.Create;
 /// </summary>
 internal sealed class CreateWeightingCommandHandler(
     IWeightingRepository weightingRepository,
+    ICarRepository carRepository,
     ILogger<CreateWeightingCommandHandler> logger)
     : ICommandHandler<CreateWeightingCommand, ErrorOr<Created>>
 {
@@ -26,14 +28,14 @@ internal sealed class CreateWeightingCommandHandler(
                 return weightingGross.FirstError;
             }
 
-            var carNumber = CarNumber.Create(command.CarNumber);
-            if (carNumber.IsError)
+            var car = await carRepository.FindAsync(command.CarId, cancellationToken);
+            if (car is null)
             {
-                logger.LogWarning("Error creating car number vo: {Error}", carNumber.FirstError);
-                return carNumber.FirstError;
+                logger.LogWarning("Car with id: {Id} not found", command.CarId);
+                return ApplicationErrors.CarErrors.NotFound;
             }
 
-            var weighting = new Weighting(carNumber.Value, weightingGross.Value);
+            var weighting = new Weighting(car, weightingGross.Value);
 
             await weightingRepository.AddAsync(weighting, cancellationToken);
 

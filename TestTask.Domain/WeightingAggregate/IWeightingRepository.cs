@@ -10,7 +10,7 @@ public interface IWeightingRepository
     /// </summary>
     /// <param name="weighting">Провеска для добавления</param>
     /// <param name="cancellationToken">Токен для отмены асинхронной операции</param>
-    public Task<Weighting> AddAsync(Weighting weighting,
+    public Task AddAsync(Weighting weighting,
         CancellationToken cancellationToken);
 
     /// <summary>
@@ -40,4 +40,5 @@ public interface IWeightingRepository
     /// </summary>
     /// <param name="cancellationToken">Токен для отмены асинхронной операции</param>
     public Task<List<Weighting>> GetList(CancellationToken cancellationToken);
+    
 }

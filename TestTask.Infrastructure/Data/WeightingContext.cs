@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TestTask.Domain.CarAggregate;
 using TestTask.Domain.WeightingAggregate;
 using TestTask.Infrastructure.Data.Config;
 
@@ -22,6 +23,11 @@ internal sealed class WeightingContext : DbContext
     ///     Провески
     /// </summary>
     public DbSet<Weighting> Weightings { get; set; }
+
+    /// <summary>
+    ///     Машины
+    /// </summary>
+    public DbSet<Car> Cars { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -1,18 +1,17 @@
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Mediator;
 using MsBox.Avalonia;
 using MsBox.Avalonia.Enums;
+using TestTask.Application.Weightings.Dto;
 using TestTask.Application.Weightings.Queries.GetList;
 using TestTask.Application.Weightings.UseCases.Delete;
-using TestTask.Infrastructure.Contracts;
+using TestTask.Application.Weightings.UseCases.Export;
 using TestTaskOne.Contracts;
 using TestTaskOne.Contracts.Dialog;
-using TestTaskOne.Models.Weightings;
 
 namespace TestTaskOne.ViewModels.Weighting;
 
@@ -20,8 +19,7 @@ public sealed partial class ListWeightingViewModel(
     IMediator mediator,
     IMessageBoxPopupProvider messageBoxPopupProvider,
     IWindowService windowService,
-    IFilePickerDialogService filePickerDialogService,
-    IWeightingImportService weightingImportService)
+    IFilePickerDialogService filePickerDialogService)
     : ViewModelBase, IAsyncInitializableViewModel
 {
     [ObservableProperty] private ObservableCollection<ListWeightingModel> _weightings = [];
@@ -67,23 +65,32 @@ public sealed partial class ListWeightingViewModel(
     }
 
     [RelayCommand]
-    private async Task ImportFromFileAsync()
-    {
-        var filePath = await filePickerDialogService.OpenFilePickerAsync("Pick file to read");
-
-        if (filePath is not null)
-            weightingImportService.ImportFromFile(filePath);
-    }
-
-    [RelayCommand]
     private async Task ExportToFileAsync()
     {
-        var filePath = await filePickerDialogService.OpenFilePickerAsync("Pick file to read");
+        var filePath = await filePickerDialogService.OpenFilePickerAsync("Pick file to export");
 
-        if (filePath is not null)
-            weightingImportService.ImportFromFile(filePath);
+        if (filePath is null)
+            return;
+
+        var exportWeightingResult = await mediator.Send(new ExportWeightingToFileCommand(filePath));
+
+        var messageBox = MessageBoxManager.GetMessageBoxStandard("Error",
+            $"Error exporting weighting, {exportWeightingResult.FirstError.Description}", ButtonEnum.Ok,
+            Icon.Error);
+
+        if (exportWeightingResult.IsError)
+        {
+            await messageBoxPopupProvider.ShowMessageBoxPopup(messageBox);
+            return;
+        }
+
+        messageBox = MessageBoxManager.GetMessageBoxStandard("Success",
+            $"Successfully exported weightings", ButtonEnum.Ok,
+            Icon.Success);
+
+        await messageBoxPopupProvider.ShowMessageBoxPopup(messageBox);
     }
-    
+
     [RelayCommand]
     private async Task DeleteAsync(int weightingId)
     {

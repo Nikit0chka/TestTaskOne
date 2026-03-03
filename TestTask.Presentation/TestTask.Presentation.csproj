@@ -69,4 +69,8 @@
         <AdditionalFiles Include="Windows\Weighting\EditWeightingWindow.axaml"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Models\" />
+    </ItemGroup>
+
 </Project>

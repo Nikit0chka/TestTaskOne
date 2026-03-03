@@ -13,12 +13,25 @@ namespace TestTask.Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Cars",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Number = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cars", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Weightings",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    CarNumber_Value = table.Column<string>(type: "text", nullable: false),
+                    CarId = table.Column<int>(type: "integer", nullable: false),
                     WeightingGross_WeightKg = table.Column<double>(type: "double precision", nullable: false),
                     WeightingGross_WeightTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     WeightingTare_WeightKg = table.Column<double>(type: "double precision", nullable: true),
@@ -29,7 +42,21 @@ namespace TestTask.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Weightings", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Weightings_Cars_CarId",
+                        column: x => x.CarId,
+                        principalTable: "Cars",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Weightings_CarId",
+                table: "Weightings",
+                column: "CarId");
+
+            migrationBuilder.Sql(
+                "insert into \"Cars\" (\"Id\", \"Number\")\nvalues (1, 'X123XX64');\nvalues (2, 'X228XX54');");
         }
 
         /// <inheritdoc />
@@ -37,6 +64,9 @@ namespace TestTask.Infrastructure.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Weightings");
+
+            migrationBuilder.DropTable(
+                name: "Cars");
         }
     }
 }

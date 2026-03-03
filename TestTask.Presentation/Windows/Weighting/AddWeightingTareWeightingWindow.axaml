@@ -9,8 +9,10 @@
         Title="AddWeightingTareWeightingWindow">
 
     <StackPanel Margin="20" Spacing="15">
-        <TextBox Text="{Binding CarNumber}"
-                 ToolTip.Tip="Car number" IsReadOnly="True" />
+        <ComboBox ItemsSource="{Binding CarSelectList}"
+                  SelectedItem="{Binding SelectedCar}"
+                  DisplayMemberBinding="{Binding Number}">
+        </ComboBox>
 
         <StackPanel Orientation="Horizontal" Spacing="10">
             <TextBlock Text="Weight tare (kg):" VerticalAlignment="Center" />
@@ -37,7 +39,6 @@
                            IsReadOnly="True"
                            Width="150" />
         </StackPanel>
-
 
         <Button Content="Create"
                 Command="{Binding SaveWeightingCommand}"

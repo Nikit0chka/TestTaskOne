@@ -1,7 +1,6 @@
-using System;
 using TestTask.Domain.WeightingAggregate;
 
-namespace TestTaskOne.Models.Weightings;
+namespace TestTask.Application.Weightings.Dto;
 
 /// <summary>
 /// Модель провески для списка
@@ -28,9 +27,9 @@ public readonly record struct ListWeightingModel
         WeightingTareDate = weightingTareDate;
     }
 
-    internal static ListWeightingModel Create(Weighting weighting)
+    public static ListWeightingModel Create(Weighting weighting)
     {
-        return new ListWeightingModel(weighting.Id, weighting.CarNumber.Value, weighting.WeightingGross.WeightKg,
+        return new ListWeightingModel(weighting.Id, weighting.Car.Number, weighting.WeightingGross.WeightKg,
             weighting.WeightNetKg, weighting.WeightingTare?.WeightKg, weighting.WeightingGross.WeightTime,
             weighting.WeightingTare?.WeightTime);
     }

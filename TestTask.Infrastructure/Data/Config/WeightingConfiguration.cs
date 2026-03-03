@@ -11,7 +11,6 @@ public class WeightingConfiguration : IEntityTypeConfiguration<Weighting>
 {
     public void Configure(EntityTypeBuilder<Weighting> builder)
     {
-        builder.OwnsOne(weightingAggregate => weightingAggregate.CarNumber);
         builder.OwnsOne(weightingAggregate => weightingAggregate.WeightingGross);
         builder.OwnsOne(weightingAggregate => weightingAggregate.WeightingTare);
     }

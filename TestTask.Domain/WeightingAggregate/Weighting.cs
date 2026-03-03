@@ -1,4 +1,5 @@
 using ErrorOr;
+using TestTask.Domain.CarAggregate;
 using TestTask.Domain.Services;
 
 namespace TestTask.Domain.WeightingAggregate;
@@ -14,9 +15,9 @@ public sealed class Weighting
     public int Id { get; private init; }
 
     /// <summary>
-    ///     Номер машины
+    ///     Машина
     /// </summary>
-    public CarNumber CarNumber { get; private set; }
+    public Car Car { get; private set; }
 
     /// <summary>
     ///     Взвешивание брутто
@@ -41,11 +42,11 @@ public sealed class Weighting
     /// <summary>
     ///     Основной конструктор
     /// </summary>
-    /// <param name="carNumber">Номер машины</param>
+    /// <param name="car">Машина</param>
     /// <param name="weightingGross"></param>
-    public Weighting(CarNumber carNumber, WeightingGross weightingGross)
+    public Weighting(Car car, WeightingGross weightingGross)
     {
-        CarNumber = carNumber;
+        Car = car;
         WeightingGross = weightingGross;
 
         CreatedOn = DateTime.UtcNow;
@@ -81,10 +82,10 @@ public sealed class Weighting
     /// <summary>
     ///     Логика обновления
     /// </summary>
-    /// <param name="carNumber">Номер машины</param>
+    /// <param name="car">Машина</param>
     /// <param name="weightingGross">Взвешивание брутто</param>
     /// <param name="weightingTare">Взвешивание тары</param>
-    public ErrorOr<Updated> Update(CarNumber carNumber, WeightingGross weightingGross, WeightingTare? weightingTare)
+    public ErrorOr<Updated> Update(Car car, WeightingGross weightingGross, WeightingTare? weightingTare)
     {
         if (weightingTare is not null)
         {
@@ -96,7 +97,7 @@ public sealed class Weighting
 
         WeightingTare = weightingTare;
         WeightingGross = weightingGross;
-        CarNumber = carNumber;
+        Car = car;
 
         return Result.Updated;
     }

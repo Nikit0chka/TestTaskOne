@@ -2,8 +2,9 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using TestTask.Application.Contracts;
+using TestTask.Domain.CarAggregate;
 using TestTask.Domain.WeightingAggregate;
-using TestTask.Infrastructure.Contracts;
 using TestTask.Infrastructure.Data;
 using TestTask.Infrastructure.Services;
 using TestTask.Infrastructure.Services.Repositories;
@@ -34,7 +35,7 @@ public static class ServiceCollectionExtensions
 
             serviceCollection.AddRepositories();
 
-            serviceCollection.AddTransient<IWeightingImportService, WeightingImportService>();
+            serviceCollection.AddTransient<IWeightingFileService, WeightingFileService>();
 
             logger.LogInformation("Infrastructure сервисы зарегистрированы");
         }
@@ -42,6 +43,7 @@ public static class ServiceCollectionExtensions
         private void AddRepositories()
         {
             serviceCollection.AddTransient<IWeightingRepository, WeightingRepository>();
+            serviceCollection.AddTransient<ICarRepository, CarRepository>();
         }
     }
 }

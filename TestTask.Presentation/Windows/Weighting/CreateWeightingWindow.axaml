@@ -8,9 +8,10 @@
         x:DataType="weighting:CreateWeightingViewModel">
 
     <StackPanel Margin="20" Spacing="15">
-        <TextBox Text="{Binding CarNumber}"
-                 Watermark="Input car number"
-                 ToolTip.Tip="Car number" />
+        <ComboBox ItemsSource="{Binding CarSelectList}"
+                  SelectedItem="{Binding SelectedCar}"
+                  DisplayMemberBinding="{Binding Number}">
+        </ComboBox>
 
         <StackPanel Orientation="Horizontal" Spacing="10">
             <TextBlock Text="Weight gross (kg):" VerticalAlignment="Center" />

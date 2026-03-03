@@ -11,7 +11,7 @@ using TestTask.Infrastructure.Data;
 namespace TestTask.Infrastructure.Migrations
 {
     [DbContext(typeof(WeightingContext))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    partial class WeightingContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -22,6 +22,23 @@ namespace TestTask.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("TestTask.Domain.CarAggregate.Car", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Number")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Cars");
+                });
+
             modelBuilder.Entity("TestTask.Domain.WeightingAggregate.Weighting", b =>
                 {
                     b.Property<int>("Id")
@@ -29,6 +46,9 @@ namespace TestTask.Infrastructure.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CarId")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("timestamp with time zone");
@@ -38,27 +58,18 @@ namespace TestTask.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CarId");
+
                     b.ToTable("Weightings");
                 });
 
             modelBuilder.Entity("TestTask.Domain.WeightingAggregate.Weighting", b =>
                 {
-                    b.OwnsOne("TestTask.Domain.WeightingAggregate.CarNumber", "CarNumber", b1 =>
-                        {
-                            b1.Property<int>("WeightingId")
-                                .HasColumnType("integer");
-
-                            b1.Property<string>("Value")
-                                .IsRequired()
-                                .HasColumnType("text");
-
-                            b1.HasKey("WeightingId");
-
-                            b1.ToTable("Weightings");
-
-                            b1.WithOwner()
-                                .HasForeignKey("WeightingId");
-                        });
+                    b.HasOne("TestTask.Domain.CarAggregate.Car", "Car")
+                        .WithMany()
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.OwnsOne("TestTask.Domain.WeightingAggregate.WeightingGross", "WeightingGross", b1 =>
                         {
@@ -98,8 +109,7 @@ namespace TestTask.Infrastructure.Migrations
                                 .HasForeignKey("WeightingId");
                         });
 
-                    b.Navigation("CarNumber")
-                        .IsRequired();
+                    b.Navigation("Car");
 
                     b.Navigation("WeightingGross")
                         .IsRequired();

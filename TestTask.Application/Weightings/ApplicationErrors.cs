@@ -14,4 +14,12 @@ internal static class ApplicationErrors
     {
         public static readonly Error NotFound = Error.NotFound(description: "Weighting not found");
     }
+
+    /// <summary>
+    /// Ошибки связанные с машиной
+    /// </summary>
+    public static class CarErrors
+    {
+        public static readonly Error NotFound = Error.NotFound(description: "Car not found");
+    }
 }

@@ -13,7 +13,7 @@ public static class DomainErrors
             Error.Validation("CODE-2", "Car number cannot be null or whitespace.");
 
         public static readonly Error CarNumberNumberInvalidFormat =
-            Error.Validation("CODE-3", "Car number must match format XX999X99 (e.g., AB123C45).");
+            Error.Validation("CODE-3", "Car number must match format X999XX99 (e.g., A123BC45).");
 
         public static readonly Error CanNotAddWeightingTareWhenItAlreadyExist =
             Error.Validation("CODE-4", "Can not add weighting tare when it already exists.");

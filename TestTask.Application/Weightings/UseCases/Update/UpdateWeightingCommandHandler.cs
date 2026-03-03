@@ -1,6 +1,7 @@
 using ErrorOr;
 using Mediator;
 using Microsoft.Extensions.Logging;
+using TestTask.Domain.CarAggregate;
 using TestTask.Domain.WeightingAggregate;
 
 namespace TestTask.Application.Weightings.UseCases.Update;
@@ -10,6 +11,7 @@ namespace TestTask.Application.Weightings.UseCases.Update;
 /// </summary>
 internal sealed class UpdateWeightingCommandHandler(
     IWeightingRepository weightingRepository,
+    ICarRepository carRepository,
     ILogger<UpdateWeightingCommandHandler> logger)
     : ICommandHandler<UpdateWeightingCommand, ErrorOr<Created>>
 {
@@ -35,11 +37,11 @@ internal sealed class UpdateWeightingCommandHandler(
                 return weightingGrossCreateResult.FirstError;
             }
 
-            var carNumberCreateResult = CarNumber.Create(command.CarNumber);
-            if (carNumberCreateResult.IsError)
+            var car = await carRepository.FindAsync(command.CarId, cancellationToken);
+            if (car is null)
             {
-                logger.LogWarning("Error creating car number vo: {Error}", carNumberCreateResult.FirstError);
-                return carNumberCreateResult.FirstError;
+                logger.LogWarning("Car with id: {Id} not found", command.CarId);
+                return ApplicationErrors.CarErrors.NotFound;
             }
 
             WeightingTare? weightingTare = null;
@@ -57,14 +59,14 @@ internal sealed class UpdateWeightingCommandHandler(
                 weightingTare = weightingTareCreateResult.Value;
             }
 
-            var weightingUpdateResult = weighting.Update(carNumberCreateResult.Value,
+            var weightingUpdateResult = weighting.Update(car,
                 weightingGrossCreateResult.Value,
                 weightingTare);
 
             if (weightingUpdateResult.IsError)
             {
-                logger.LogWarning("Error updating weighting: {Error}", carNumberCreateResult.FirstError);
-                return carNumberCreateResult.FirstError;
+                logger.LogWarning("Error updating weighting: {Error}", weightingUpdateResult.FirstError);
+                return weightingUpdateResult.FirstError;
             }
 
             await weightingRepository.UpdateAsync(weighting, cancellationToken);

@@ -1,9 +1,12 @@
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Mediator;
 using MsBox.Avalonia;
 using MsBox.Avalonia.Enums;
+using TestTask.Application.Cars.Dto;
+using TestTask.Application.Cars.Queries.GetSelectList;
 using TestTask.Application.Weightings.Queries.Get;
 using TestTask.Application.Weightings.UseCases.AddWeightingTare;
 using TestTask.Domain.Services;
@@ -22,7 +25,8 @@ public sealed partial class AddWeightingTareWeightingViewModel(
     [ObservableProperty] private double _weightGross;
     [ObservableProperty] private double _weightTare;
     [ObservableProperty] private double _weightNet;
-    [ObservableProperty] private string _carNumber = "";
+    [ObservableProperty] private CarSelectListModel _selectedCar;
+    [ObservableProperty] private ObservableCollection<CarSelectListModel> _carSelectList = [];
 
     public async Task InitializeAsync(object? parameter)
     {
@@ -39,7 +43,8 @@ public sealed partial class AddWeightingTareWeightingViewModel(
 
             _weightingId = weightingId;
 
-            var getWeightingResult = await mediator.Send(new GetWeightingQuery(weightingId));
+            var getWeightingResult =
+                await mediator.Send(new GetWeightingQuery(weightingId));
 
             if (getWeightingResult.IsError)
             {
@@ -50,7 +55,20 @@ public sealed partial class AddWeightingTareWeightingViewModel(
                 return;
             }
 
-            CarNumber = getWeightingResult.Value.CarNumber.Value;
+            var getCarSelectListResult = await mediator.Send(new GetCarSelectListQuery());
+
+            if (getCarSelectListResult.IsError)
+            {
+                var messageBox = MessageBoxManager.GetMessageBoxStandard("Error",
+                    $"Error getting car list, {getCarSelectListResult.FirstError.Description}", ButtonEnum.Ok,
+                    Icon.Error);
+
+                await messageBoxPopupProvider.ShowMessageBoxPopup(messageBox);
+                return;
+            }
+
+            CarSelectList = new ObservableCollection<CarSelectListModel>(getCarSelectListResult.Value);
+            SelectedCar = CarSelectListModel.Create(getWeightingResult.Value.Car);
             WeightGross = getWeightingResult.Value.WeightingGross.WeightKg;
             WeightTare = getWeightingResult.Value.WeightingTare?.WeightKg ?? 0;
         }

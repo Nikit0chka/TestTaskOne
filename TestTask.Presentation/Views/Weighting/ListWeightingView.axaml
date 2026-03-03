@@ -15,10 +15,7 @@
             <Button Content="Create" Command="{Binding GotoCreateWeightingPageCommand}"
                     Margin="5" HorizontalAlignment="Left" />
 
-            <Button Content="File" Command="{Binding ImportFromFileCommand}"
-                    Margin="5" HorizontalAlignment="Left" />
-
-            <Button Content="File" Command="{Binding ExportToFileCommand}"
+            <Button Content="Export" Command="{Binding ExportToFileCommand}"
                     Margin="5" HorizontalAlignment="Left" />
         </StackPanel>
 
