@@ -9,9 +9,9 @@ public static class WeightingNetCalculator
     ///     Логика подсчета веса нет провески
     /// </summary>
     /// <param name="weightGross">Вес брутто</param>
-    /// <param name="weightNet">Вес нет</param>
-    public static double CalculateWeightNet(double weightGross, double weightNet)
+    /// <param name="weightTare">Вес нет</param>
+    public static double CalculateWeightNet(double weightGross, double weightTare)
     {
-        return weightGross - weightNet;
+        return weightGross - weightTare;
     }
 }

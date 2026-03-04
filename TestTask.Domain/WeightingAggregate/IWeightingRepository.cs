@@ -25,7 +25,6 @@ public interface IWeightingRepository
     /// </summary>
     /// <param name="weighting">Провеска для удаления</param>
     /// <param name="cancellationToken"></param>
-    /// <returns></returns>
     public Task DeleteAsync(Weighting weighting, CancellationToken cancellationToken);
 
     /// <summary>

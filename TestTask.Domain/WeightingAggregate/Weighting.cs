@@ -43,7 +43,7 @@ public sealed class Weighting
     ///     Основной конструктор
     /// </summary>
     /// <param name="car">Машина</param>
-    /// <param name="weightingGross"></param>
+    /// <param name="weightingGross">Вес брутто</param>
     public Weighting(Car car, WeightingGross weightingGross)
     {
         Car = car;
