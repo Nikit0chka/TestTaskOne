@@ -12,7 +12,7 @@ internal static class ApplicationErrors
     /// </summary>
     public static class WeightingErrors
     {
-        public static readonly Error NotFound = Error.NotFound(description: "Weighting not found");
+        public static readonly Error NotFound = Error.NotFound(description: "Взвешивание не найдено");
     }
 
     /// <summary>
@@ -20,6 +20,6 @@ internal static class ApplicationErrors
     /// </summary>
     public static class CarErrors
     {
-        public static readonly Error NotFound = Error.NotFound(description: "Car not found");
+        public static readonly Error NotFound = Error.NotFound(description: "Автомобиль не найден");
     }
 }

@@ -1,28 +1,32 @@
-<Window xmlns="https://github.com/avaloniaui"
+﻿<Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:weighting="clr-namespace:TestTaskOne.ViewModels.Weighting"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="150"
         x:Class="TestTaskOne.Windows.Weighting.CreateWeightingWindow"
-        x:DataType="weighting:CreateWeightingViewModel">
+        x:DataType="weighting:CreateWeightingViewModel" 
+        Title="Создать Провеску" Width="450" Height="150">
+        
 
     <StackPanel Margin="20" Spacing="15">
-        <ComboBox ItemsSource="{Binding CarSelectList}"
-                  SelectedItem="{Binding SelectedCar}"
-                  DisplayMemberBinding="{Binding Number}" />
-
         <StackPanel Orientation="Horizontal" Spacing="10">
-            <TextBlock Text="Weight gross (kg):" VerticalAlignment="Center" />
+            <TextBlock Text="Выбрать номер машины"/>
+            <ComboBox ItemsSource="{Binding CarSelectList}"
+                       SelectedItem="{Binding SelectedCar}"
+                       DisplayMemberBinding="{Binding Number}" />
+            </StackPanel>
+        <StackPanel Orientation="Horizontal" Spacing="10">
+            <TextBlock Text="Вес Брутто (кг):" VerticalAlignment="Center" />
             <NumericUpDown Value="{Binding WeightGross}"
                            Minimum="0"
                            FormatString="0.##"
                            Width="150" />
         </StackPanel>
 
-        <Button Content="Create"
+        <Button Content="Создать ➕"
                 Command="{Binding CreateCommand}"
-                HorizontalAlignment="Right"
+                HorizontalAlignment="Center"
                 Padding="20,5" />
     </StackPanel>
 </Window>
