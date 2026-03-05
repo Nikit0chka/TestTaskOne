@@ -5,16 +5,22 @@
              xmlns:weighting="clr-namespace:TestTaskOne.ViewModels.Weighting"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="TestTaskOne.Views.Weighting.ListWeightingView"
-             x:DataType="weighting:ListWeightingViewModel">
+             x:DataType="weighting:ListWeightingViewModel"
+             xmlns:views="clr-namespace:TestTaskOne.Views.Weighting">
 
-    <Grid RowDefinitions="Auto, *">
-          <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="5" Spacing="10">
+   <Grid RowDefinitions="Auto, Auto, *">
+ <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="5" Spacing="10">
     <Button Content="🔄️ Обновить" Command="{Binding LoadCommand}" Padding="10 5"/>
     <Button Content="➕ Создать" Command="{Binding GotoCreateWeightingPageCommand}" Padding="10 5"/>
     <Button Content="📤 Экспорт" Command="{Binding ExportToFileCommand}" Padding="10 5"/>
 </StackPanel>
+       <views:WeightingChartView Grid.Row="1" 
+                                   DataContext="{Binding WeightingChartViewModel}"
+                                   Height="250" 
+                                   Margin="5"/>
 
-        <DataGrid x:Name="WeightingDataGrid" Grid.Row="1" ItemsSource="{Binding Weightings}"
+        
+        <DataGrid x:Name="WeightingDataGrid" Grid.Row="2" ItemsSource="{Binding Weightings}"
                   AutoGenerateColumns="False" CanUserResizeColumns="True"
                   IsReadOnly="True" Margin="5">
             <DataGrid.Columns>

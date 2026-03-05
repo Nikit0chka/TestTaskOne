@@ -56,7 +56,7 @@ namespace TestTask.Infrastructure.Migrations
                 column: "CarId");
 
             migrationBuilder.Sql(
-                "insert into \"Cars\" (\"Id\", \"Number\")\nvalues (1, 'X123XX64');\nvalues (2, 'X228XX54');");
+                "insert into \"Cars\" (\"Id\", \"Number\")\nvalues (1, 'X123XX64'),\n (2, 'X228XX54');");
         }
 
         /// <inheritdoc />

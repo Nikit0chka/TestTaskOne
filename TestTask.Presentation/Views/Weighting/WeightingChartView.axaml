@@ -1,0 +1,13 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Avalonia;assembly=LiveChartsCore.SkiaSharpView.Avalonia"
+             xmlns:vm="clr-namespace:TestTaskOne.ViewModels.Weighting"
+             x:Class="TestTaskOne.Views.Weighting.WeightingChartView"
+             x:DataType="vm:WeightingChartViewModel">
+    <lvc:CartesianChart Series="{Binding Series}"
+                        XAxes="{Binding XAxes}"
+                        YAxes="{Binding YAxes}"
+                        TooltipPosition="Top"
+                        ZoomMode="X"
+                        AnimationsSpeed="0:0:0.1"/>
+</UserControl>
